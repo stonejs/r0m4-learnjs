@@ -1,8 +1,12 @@
-function hi (a,b) {
+// use proper function naming
+
+function swap (a,b) {
     var c = a;
     var a = b;
     var b = c;
     return [a,b];
 };
 
-console.log (hi(10,5));
+console.log("swap(10,5)", swap(10,5));
+
+// LGTM

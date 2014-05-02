@@ -6,4 +6,7 @@ function pow (a, n) {
     return result;
 };
 
-console.log(pow(2,3));
+console.log('pow(2,3)',pow(2,3));
+
+
+// see comments to no.4
