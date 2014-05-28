@@ -5,6 +5,4 @@ function multiply(a, b) {
     }
     return result;
 };
-console.log('multiply(9, 113)',multiply(9, 113));
-
-// LGTM
+console.log(multiply(9, 113));
