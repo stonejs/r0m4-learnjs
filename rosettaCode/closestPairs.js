@@ -1,57 +1,3 @@
-/*The aim of this task is to provide a function to find the closest two points among a set of 
-given points in two dimensions, i.e. to solve the Closest pair of points problem in the planar case.
-The straightforward solution is a O(n2) algorithm (which we can call brute-force algorithm); 
-the pseudocode (using indexes) could be simply:
-bruteForceClosestPair of P(1), P(2), ... P(N)
-if N < 2 then
-  return ∞
-else
-  minDistance ← |P(1) - P(2)|
-  minPoints ← { P(1), P(2) }
-  foreach i ∈ [1, N-1]
-    foreach j ∈ [i+1, N]
-      if |P(i) - P(j)| < minDistance then
-        minDistance ← |P(i) - P(j)|
-        minPoints ← { P(i), P(j) } 
-      endif
-    endfor
-  endfor
-  return minDistance, minPoints
- endif
-A better algorithm is based on the recursive divide&conquer approach, as explained also at Wikipedia, 
-which is O(n log n); a pseudocode could be:
-closestPair of (xP, yP)
-               where xP is P(1) .. P(N) sorted by x coordinate, and
-                     yP is P(1) .. P(N) sorted by y coordinate (ascending order)
-if N ≤ 3 then
-  return closest points of xP using brute-force algorithm
-else
-  xL ← points of xP from 1 to ⌈N/2⌉
-  xR ← points of xP from ⌈N/2⌉+1 to N
-  xm ← xP(⌈N/2⌉)x
-  yL ← { p ∈ yP : px ≤ xm }
-  yR ← { p ∈ yP : px > xm }
-  (dL, pairL) ← closestPair of (xL, yL)
-  (dR, pairR) ← closestPair of (xR, yR)
-  (dmin, pairMin) ← (dR, pairR)
-  if dL < dR then
-    (dmin, pairMin) ← (dL, pairL)
-  endif
-  yS ← { p ∈ yP : |xm - px| < dmin }
-  nS ← number of points in yS
-  (closest, closestPair) ← (dmin, pairMin)
-  for i from 1 to nS - 1
-    k ← i + 1
-    while k ≤ nS and yS(k)y - yS(i)y < dmin
-      if |yS(k) - yS(i)| < closest then
-        (closest, closestPair) ← (|yS(k) - yS(i)|, {yS(k), yS(i)})
-      endif
-      k ← k + 1
-    endwhile
-  endfor
-  return closest, closestPair
-endif
-*/
 
 function piphagor(point1, point2) {
   var dx = point1.x - point2.x;
@@ -60,10 +6,41 @@ function piphagor(point1, point2) {
   return distance;
 };
 
-console.log(piphagor({x:345, y : 234}, {x : 256, y : 132}));
+
+/*
+Divide the set into two equal sized parts by the line l, and recursively compute the minimal distance in each part.
+Let d be the minimal of the two minimal distances.
+Eliminate points that lie farther than d apart from l
+Sort the remaining points according to their y-coordinates
+Scan the remaining points in the y order and compute the distances of each point to its five neighbors.
+If any of these distances is less than d then update d.
+*/
+
+//function which make l line
+function makeLine(arr) {
+  var maxX = 0;
+  var maxY = 0;
+    
+  for (var i = 0; i < arr.length; i++) {
+    if (arr[i].x > maxX) { 
+      maxX = arr[i].x;
+
+    } else if (arr[i].y > maxY) {
+      maxY = arr[i].y;
+
+    };
+
+  };
+
+  var l = {x : Math.floor(maxX/2), y : Math.floor(maxY/2)};
+  return l;
+};
 
 
-function closestPair(arr){
+// function which define minimal distance and coordinates of 2 pairs points that they are have 
+function closestPair(arr) {
+  var extCount = 0;
+  var intCount = 0;
   if (arr.length < 2 ) {
     return Infinity;
 
@@ -72,24 +49,34 @@ function closestPair(arr){
       var minPoints = arr.slice(0,2);
 
       for (var i = 0; i < arr.length-1; i++) {
+        
         for (var k = i+1; k < arr.length; k++){
-          if (piphagor(arr[i], arr[k]) < minDist) {
+          extCount += 1;  
+
+            if (piphagor(arr[i], arr[k]) < minDist) {
             minDist = piphagor(arr[i], arr[k]);
             minPoints = [arr[i], arr[k]];
+            intCount += 1;
+
           }
 
         }
 
-      }
-      return {
-        distance : minDist,
-        points : minPoints
       };
 
+    
     };
+
+    return {
+        distance : minDist,
+        points : minPoints,
+        intCounts : intCount,
+        extCount : extCount
+      };
 };
 
 
+//function which makes random points 
 function pointGenerator (numPoints) {
   var result = [];
     
@@ -102,7 +89,67 @@ function pointGenerator (numPoints) {
   return result;
 };
 
-var points = pointGenerator(20); 
-console.log(points);
-console.log(closestPair(points));
+
+
+function devAndConq(arr) {
+  if (arr.length < 2) {
+    return Infinity;
+  
+  } else {
+      var minDist = piphagor (arr[0], arr[1]);
+      var minPoints = arr.slice(0,2);
+      var arrL = [];
+      var arrR = [];
+      var arrD = [];
+      var l = makeLine(arr);
+      
+
+        //Divide the set into two equal sized parts by the line l
+        //Deviding arr into arrL and arrR by line = l
+        for (var i = 0; i < arr.length; i++) {
+          if (arr[i].x < l.x ) {
+            arrL.push(arr[i]);
+
+          } else if (arr[i].x > l.x){ 
+              arrR.push(arr[i]);
+
+            };
+
+        };
+
+          //define d dimension with l in center and creating new arrD with points that located in 
+          //d demension via x coordinate
+          //update minDist which equal half of d 
+
+          minDist = (closestPair(arrL) > closestPair(arrR)) ? closestPair(arrR) : closestPair(arrL); 
+          
+          var d = {startx: (l.x - minDist.distance), endx:(l.x + minDist.distance)};
+ 
+            for (var i = 0; i < arr.length; i++) {
+              if (arr[i].x >= d.startx && arr[i].x <= d.endx) {
+                arrD.push({x: arr[i].x, y: arr[i].y});  
+              }
+
+            };
+             
+
+              //checkout arrD maybe in it any points with distance < minDist
+              // and receiving our winnner 
+              if (arrD.length > 1) {
+                var minDistanceD = closestPair(arrD);
+                minDist = minDistanceD.distance > minDist.distance ? minDist : minDistanceD;
+
+              }
+
+
+    };
+    return minDist;
+    
+};
+
+
+
+var dots = pointGenerator(100);
+console.log(dots);
+console.log(devAndConq(dots));
 
