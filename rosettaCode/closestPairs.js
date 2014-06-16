@@ -159,7 +159,10 @@ function devAndConq(arr) {
 
 
 
-var dots = pointGenerator(100000);
+var dots = pointGenerator(20);
+console.log(devAndConq(dots));
+console.log(closestPair(dots));
+
 
 
 function benchDev(){
