@@ -93,7 +93,7 @@ function pointGenerator (numPoints) {
 
 function devAndConq(arr) {
   if (arr.length < 2) {
-    return Infinity;
+    return "Hi ho";
   
   } else {
       var minDist = piphagor (arr[0], arr[1]);
@@ -120,14 +120,19 @@ function devAndConq(arr) {
           //define d dimension with l in center and creating new arrD with points that located in 
           //d demension via x coordinate
           //update minDist which equal half of d 
+         
 
-          minDist = (closestPair(arrL) > closestPair(arrR)) ? closestPair(arrR) : closestPair(arrL); 
+                  
+
+          minDist = (closestPair(arrL).distance > closestPair(arrR).distance) ? closestPair(arrR) : closestPair(arrL); 
           
           var d = {startx: (l.x - minDist.distance), endx:(l.x + minDist.distance)};
- 
+          
+
+
             for (var i = 0; i < arr.length; i++) {
               if (arr[i].x >= d.startx && arr[i].x <= d.endx) {
-                arrD.push({x: arr[i].x, y: arr[i].y});  
+                arrD.push(arr[i]);  
               }
 
             };
@@ -138,18 +143,89 @@ function devAndConq(arr) {
               if (arrD.length > 1) {
                 var minDistanceD = closestPair(arrD);
                 minDist = minDistanceD.distance > minDist.distance ? minDist : minDistanceD;
-
-              }
-
+                
+              };
 
     };
-    return minDist;
+
+        if (minDist === Infinity){
+          return (closestPair(arr));
+
+        } else return minDist;
+            
+      
     
 };
 
 
 
-var dots = pointGenerator(100);
-console.log(dots);
-console.log(devAndConq(dots));
 
+
+
+
+
+
+/*Итак, 1. Сравнить результаты работы двух алгоритмов.
+Сгенерировать несколько наборов точек, запустить на каждом оба
+алгоритма и сравнить результаты.
+
+2. Сравнить время работы двух алгоритмов.
+
+Сгенерировать большой набор точек и сравнить время выполнения первого
+и второго решения.
+
+время засекать примерно так:
+var pp = generate()
+for(var i = 0; i<10; i++) someFn(pp) // нужно для разогрева, чтобы
+компилятор имел возможность оптимизировать работающую функцию
+
+var t0 = Date.now()
+someFn(pp)
+var t1 = Date.now()
+console.log("test done in ",t1-t0,"ms")
+
+если t1-t0 слишком маленькое, взять набор точек побольше, чтобы время
+было порядка 1000ms.
+
+Увеличивать набор точек, и смотреть, как изменяется время выполнения
+обоих алгоритмов.*/
+
+
+var dots = pointGenerator(100000);
+
+
+function benchDev(){
+var data = [];
+
+  for (var i = 0; i < 10; i++) {
+    devAndConq(dots);
+
+    var t0 = Date.now();
+    devAndConq(dots)
+    var t1 = Date.now();
+    data.push(t1-t0);
+  
+  }
+
+return data;
+};
+
+function benchClos(){
+var data = [];
+
+  for (var i = 0; i < 10; i++) {
+    closestPair(dots);
+
+    var t0 = Date.now();
+    closestPair(dots)
+    var t1 = Date.now();
+    data.push(t1-t0);
+  
+  }
+
+return data;
+};
+
+
+console.log(benchDev());
+console.log(benchClos());
