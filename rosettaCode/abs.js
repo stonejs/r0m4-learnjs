@@ -33,8 +33,7 @@ function sortArr(arr) {
     var obj = {};
 
     for (var i = 0; i < arr.length; i++) {
-        var sort = arr[i];
-        obj[sort]=true;
+        obj[arr[i]]=true;
 
     }
 
