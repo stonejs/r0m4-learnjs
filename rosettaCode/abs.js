@@ -36,7 +36,7 @@
 представить такого прочтения условия, которое подразумевало бы такое
 решение как ты предложил. */
 
-var bukvi = [["a","b","c"], ["bb","cc"], ["dd","e"]];
+var bukvi = [["a","b"], ["c","d"]];
 
 
 
@@ -57,7 +57,7 @@ function exchange (arr) {
         for (var i = 0; i < element1.length; i++) {
             for (var k = 0; k < element2.length; k++) {
                 for (var j =0; j < element0.length; j++) {
-                    fullArr.push(element0[j],element1[i],element2[k]);
+                    fullArr.push([element0[j],element1[i],element2[k]]);
                 }
             
             }
@@ -79,7 +79,7 @@ function exchange (arr) {
         for (var i = 0; i < element1.length; i++) {
             for (var k = 0; k < element2.length; k++) {
                 for (var j =0; j < element0.length; j++) {
-                    fullArr.push(element0[j],element1[i],element2[k]);
+                    fullArr.push([element0[j],element1[i],element2[k]]);
                 }
             
             }
