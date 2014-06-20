@@ -36,63 +36,22 @@
 представить такого прочтения условия, которое подразумевало бы такое
 решение как ты предложил. */
 
-var bukvi = [["a","b"], ["c","d"]];
+var bukvi = [["1","2"], ["3","4"], ["5","6"], ["7","8"]];
 
 
+function replacer(arr) {
+    var newArr = [];
 
-function exchange (arr) {
-    
-    var fullArr = [];
-    
-    
+    for (var i = 0; i < arr[i].length; i++) {
+        for (var k = 0; k < arr.length; k++) {
+            newArr.push(arr[k][i]);
 
-    if (arr.length%2===1) {
-        var element0 = arr[0];
-        var element1 =  arr.slice(1, (arr.length+1)/2);
-        element1 = (element1.join().split(','));
-        var element2 = arr.slice((arr.length+1)/2);
-        element2 = (element2.join().split(','));
+        }
         
-        
-        for (var i = 0; i < element1.length; i++) {
-            for (var k = 0; k < element2.length; k++) {
-                for (var j =0; j < element0.length; j++) {
-                    fullArr.push([element0[j],element1[i],element2[k]]);
-                }
-            
-            }
-
-        };
-
-
-
-    return fullArr;
-
-    } else if (arr.length%2===0) {
-        var element0 = arr[0];
-        var element1 =  arr.slice(1, (arr.length)/2);
-        element1 = (element1.join().split(','));
-        var element2 = arr.slice((arr.length)/2);
-        element2 = (element2.join().split(','));
-        
-        
-        for (var i = 0; i < element1.length; i++) {
-            for (var k = 0; k < element2.length; k++) {
-                for (var j =0; j < element0.length; j++) {
-                    fullArr.push([element0[j],element1[i],element2[k]]);
-                }
-            
-            }
-
-        };
-
-        return fullArr;
     }
-
-    
-
+    return newArr;
 };
 
-console.log(exchange(bukvi)) ;
+console.log (replacer(bukvi));
 
 
