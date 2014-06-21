@@ -36,20 +36,30 @@
 представить такого прочтения условия, которое подразумевало бы такое
 решение как ты предложил. */
 
-var bukvi = [["1","2"], ["3","4"], ["5","6"], ["7","8"]];
-
+var bukvi = [["1","2"], ["3","4","9"], ["5","6"], ["7","8"]];
+//var bukvi = [["a","b","c"], ["bb","cc"], ["dd","e"]];
 
 function replacer(arr) {
     var newArr = [];
+    var novoArr = [];
+    var count = 0; 
 
     for (var i = 0; i < arr[i].length; i++) {
         for (var k = 0; k < arr.length; k++) {
             newArr.push(arr[k][i]);
+            if (arr[k]>count) count++;
 
         }
         
     }
-    return newArr;
+
+    for (var i = 0; i < arr[i].length; i++) {
+        console.log(newArr.slice(0, arr[i]));    
+    }
+
+    return {newArr :newArr, 
+            count : count
+            };
 };
 
 console.log (replacer(bukvi));
