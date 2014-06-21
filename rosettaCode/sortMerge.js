@@ -25,17 +25,23 @@ function sort(arr) {
         };
 
 
+    var output = [];
+    var outputLess = [];
+
+
 function merge(arr0, arr1) {
         
         if (arr0.length === 0 || arr1.length === 0) return;
-        var output = [];
+        
          
         output.push((arguments[0][0] >= arguments[1][0]) ? arr0.shift() : arr1.shift());
         console.log(output);
 
         //console.log(arguments[1].length);
-        return (arguments[0][0] <= arguments[1][0]) ? merge(arguments[0], arr1) : merge(arr0, arguments[1]);
+        (arguments[0][0] <= arguments[1][0]) ? merge(arguments[0], arr1) : merge(arr0, arguments[1]);
+        
 
+        return output.concat((arguments[0].length > 0) ? arr0 : arr1);
         
         };
 
@@ -49,3 +55,4 @@ var slicedArr = sort(generation);
 console.log(slicedArr);
 
 console.log(merge(slicedArr.Arr0,slicedArr.Arr1));
+
