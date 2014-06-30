@@ -47,6 +47,7 @@ var cifridva = [[1,2], [3,4]];
 var cifri = [[1,2], [3,4], [5,6],[7,8]];
 
 var cifri2 = [[1,2], [3,4], [5,6], [7,8],[9,10]];
+var cifriRazn = [[1,2], [3,4,9], [5,6],[7,8]];
 
 
 function variate(arr) {
@@ -58,7 +59,7 @@ function variate(arr) {
         var m = (arr.slice(0, arr.length));
         
 
-        for (var i = 0; i < m.length; i++){
+        for (var i = 1; i < m.length; i++){
           
 
             for (var k = 0; k < m[i].length; k++) {
@@ -69,7 +70,7 @@ function variate(arr) {
 
         };
 
-        for (var i = 0; i < m.length; i++) {
+        for (var i = 1; i < m.length; i++) {
             
 
             for (var j = 0; j < m[i].length; j++) {
@@ -87,7 +88,7 @@ function variate(arr) {
        
 
 };
-console.log(variate(cifri2));
+console.log(variate(cifridva));
 
 
 
