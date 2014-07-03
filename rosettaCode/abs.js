@@ -43,6 +43,7 @@ var bukvi = [["1","2"], ["3","4","5"], ["6","7"], ["8","9"]];
 var cifri0 = [[1,2]];
 
 var cifridva = [[1,2], [3,4]];
+var cifritri = [[1,2], [3,4], [5,6]];
 
 var cifri = [[1,2], [3,4], [5,6],[7,8]];
 
@@ -51,6 +52,66 @@ var cifriRazn = [[1,2], [3,4,9], [5,6],[7,8]];
 
 
 function variate(arr) {
+    if (arr.length===0) return "Incoorrect Input";
+    if (arr.length===1) return [arr[0][0], arr[0][1]]; 
+    
+    var output = [];
+    var m = variate(arr.slice(1, arr.length));
+    var zero = arr[0][0];
+    var one = arr[0][1];
+
+    for (var i = 0; i < m.length; i++) {
+        var t = [arr[0][0]].concat(m[i]);
+        output.push(t);
+
+    };
+
+    for (var i = 0; i < m.length; i++) {
+        var k = [arr[0][1]].concat(m[i]);
+        output.push(k);
+
+    }
+
+    return output;
+};
+
+console.log(variate(cifri));
+
+
+
+function idx(n){
+    if (n===0)return "Incorrect Input";
+    if (n===1)return[[0],[1]];
+
+    //idx(n-1)+idx(n-2);
+
+    var output = [];
+    var m = idx(n-1);
+    
+
+    for (var i = 0; i < m.length; i++) {
+        var t = [0].concat(m[i]);
+        output.push(t);    
+    };
+
+    for (var i = 0; i < m.length; i++) {
+        var k = [1].concat(m[i]);
+        output.push(k);
+    }
+
+    return   output;
+
+    
+
+}
+
+//console.log(idx(3));
+
+
+
+
+
+function myPleasure(arr) {
     if (arr.length === 0) return "Incorrect Input";
     if (arr.length === 1) return [[arr[0][0]],[arr[0][1]]]; //вот он !!! Базис рекурсивной функции :):):):)
     
@@ -81,44 +142,13 @@ function variate(arr) {
 
         };  
 
-        variate(arr.slice(0, arr.length-1));
+        myPleasure(arr.slice(0, arr.length-1));
         
         return   output;
 
        
 
 };
-console.log(variate(cifridva));
-
-
-
-function idx(n){
-    if (n===0)return "Incorrect Input";
-    if (n===1)return[[0],[1]];
-
-    //idx(n-1)+idx(n-2);
-
-    var output = [];
-    var m = idx(n-1);
-    
-
-    for (var i = 0; i < m.length; i++) {
-        var t = [0].concat(m[i]);
-        output.push(t);    
-    };
-
-    for (var i = 0; i < m.length; i++) {
-        var k = [1].concat(m[i]);
-        output.push(k);
-    }
-
-    return   output;
-
-    
-
-}
-
-//console.log(idx(5));
 
 
 function idxAdvan(n) {
