@@ -43,12 +43,59 @@ var bukvi = [["1","2"], ["3","4","5"], ["6","7"], ["8","9"]];
 var cifri0 = [[1,2]];
 
 var cifridva = [[1,2], [3,4]];
-var cifritri = [[1,2], [3,4], [5,6]];
 
-var cifri = [[1,2], [3,4], [5,6],[7,8]];
+var cifritri = [[1,2,9], [3,4], [5,6,7]];
+
+var cifri = [[1,2,9], [3,4], [5,6],[7,8]];
 
 var cifri2 = [[1,2], [3,4], [5,6], [7,8],[9,10]];
+
 var cifriRazn = [[1,2], [3,4,9], [5,6],[7,8]];
+
+
+function variateUp(arr) {
+    if (arr.length===0) return "Incorrect Input";
+    if (arr.length===1) { 
+        var vivod = [];
+
+        for (var i = 0; i < arr.length; i++) {
+            for (var u = 0; u < arr[i].length; u++) {
+            vivod.push([arr[i][u]]);
+                
+            }
+            
+        }
+        return vivod;
+    }
+
+
+    var output = [];
+    var m = variateUp (arr.slice(1 , arr.length));
+
+    for (var i = 0; i < m.length; i++) {
+        for (var j = 0; j < arr[0].length; j++) {
+        var t = [arr[0][j]].concat(m[i]);
+        output.push(t);
+    
+        }
+        
+    };
+
+    /*for (var i = 0; i < m.length; i++) {
+        for (var x = 0; x < 3; x++) {
+        var k = [arr[0][j]].concat(m[i]);
+        output.push(k);
+            
+        }
+        
+
+    };*/
+
+    return output;
+};
+
+console.log(variateUp(cifritri));
+
 
 
 function variate(arr) {
@@ -57,8 +104,7 @@ function variate(arr) {
     
     var output = [];
     var m = variate(arr.slice(1, arr.length));
-    var zero = arr[0][0];
-    var one = arr[0][1];
+    
 
     for (var i = 0; i < m.length; i++) {
         var t = [arr[0][0]].concat(m[i]);
@@ -75,7 +121,7 @@ function variate(arr) {
     return output;
 };
 
-console.log(variate(cifri));
+//console.log(variate(cifritri));
 
 
 
@@ -117,7 +163,7 @@ function myPleasure(arr) {
     
 
         var output = [];
-        var m = (arr.slice(0, arr.length));
+        var m = myPleasure(arr.slice(1, arr.length));
         
 
         for (var i = 1; i < m.length; i++){
@@ -142,13 +188,15 @@ function myPleasure(arr) {
 
         };  
 
-        myPleasure(arr.slice(0, arr.length-1));
+        
         
         return   output;
 
        
 
 };
+
+//console.log(myPleasure(cifritri));
 
 
 function idxAdvan(n) {
