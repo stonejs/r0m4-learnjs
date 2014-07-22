@@ -74,8 +74,8 @@ function variateUp(arr) {
 
     for (var i = 0; i < m.length; i++) {
         for (var j = 0; j < arr[0].length; j++) {
-        var t = [arr[0][j]].concat(m[i]);
-        output.push(t);
+            var t = [arr[0][j]].concat(m[i]);
+            output.push(t);
     
         }
         
