@@ -21,6 +21,7 @@ function findMin(arr){
              if (arr[i] <= minNum) {
                 minNum = arr[i];
                 output.znachen = arr[i];
+                output.position = i;
                 
              }
         }
@@ -34,13 +35,14 @@ function sortPick (x) {
     for (var i = 0; i < x.length-1; i++) {
         var minCifra = findMin(x.slice(i, x.length));
         
-        for (var k = 0; k < x.length; k++) {
-            if (x[k] == minCifra.znachen) {
+        
+        /*for (var k = 0; k < x.length; k++) {
+            if (x[k] === minCifra.znachen) {
                 minCifra.position = k;
             }
-        }   
+        } */  
 
-        
+        minCifra.position = minCifra.position + i;
         x[minCifra.position]=x[i];
         x[i]= minCifra.znachen;       
     }

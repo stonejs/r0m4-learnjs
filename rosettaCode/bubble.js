@@ -9,7 +9,7 @@ function deliverArrRandNum (x) {
 };
 
 
-var randNums = deliverArrRandNum(10);
+var randNums = deliverArrRandNum(20);
 console.log(randNums);
 
 
