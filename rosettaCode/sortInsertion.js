@@ -56,9 +56,9 @@ console.log(sortedHalfArr(randNums));
 
 
 
-function sortInsert (arr) {
+function sortInsert (arr, startPos) {
     
-    for (var i = arr.length/2; i < arr.length; i++) {
+    for (var i = startPos; i < arr.length; i++) {
         
         for(var j = i; j!=0; j--){
 
@@ -75,4 +75,4 @@ function sortInsert (arr) {
     return arr;
 }
 
-console.log(sortInsert(HalfArrStuff));
+console.log(sortInsert(HalfArrStuff, 2));
