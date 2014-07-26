@@ -86,9 +86,16 @@ console.log(sortedFour);
 
 function sortEighthTwo(arr) {
     for (var i = 0; i < 2; i++) {
-        var sortedArrr = compareNum([arr[i], arr[i+2], arr[i+4], arr[i+6], arr[i+8], arr[i+10], arr[i+12], arr[i+14], arr[i+16]]);
-        var inerCount = 0;
+        var argsArr = [];
+        
 
+        for (var c=i; c < arr.length; c+=2){
+            argsArr.push(arr[c]);
+        }
+
+        var sortedArrr = compareNum(argsArr);
+        var inerCount = 0;
+        
         for (var k = i; k < arr.length; k=k+2) {
             arr[k] = sortedArrr[inerCount];
             inerCount++;
